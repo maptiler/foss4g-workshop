@@ -33,8 +33,11 @@ Go to Browser/PostGIS/New Connection…
 Check you can see added bicycle table. Go to Browser/PostGIS/osm_buenos_aires/public/osm_bicycle_linestring and
 double-click on it. Bicycle paths should be added to map canvas.
 
-#### Add basemap for context
-Go to Plugins/Manage and Install plugins.../All ans search for `MapTiler`
+#### Add basemap for context via MapTiler plugin
+
+1. Go to Plugins/Manage and Install plugins.../All and search for `MapTiler`
+2. Right-click on MapTiler in Browser and add API key `XorxtpkRV4o7B7Ssqzg6`
+3. Add Streets map
 
 
 #### Add GeoJSON to QGIS
