@@ -117,7 +117,7 @@ make psql
 UPDATE ba_bike_sharing_stations AS b SET distance=(SELECT ST_Distance(b.wkb_geometry, c.geometry) FROM osm_cycleway_linestring AS c ORDER BY b.wkb_geometry <-> c.geometry LIMIT 1);
 ```
 
-## Block 3 - adding custom layers to schema
+## Adding custom layers to schema
 1. create new folder `cycleway_poi` in `layers` folder
 2. create new files `cycleway_poi.yaml` and `cycleway_poi.sql`
 
@@ -228,3 +228,5 @@ Then you can generate tiles
 make generate-tiles-pg
 ```
 Generated tiles will be saved in `openmaptiles/data/tiles.mbtiles`
+
+## Block 3 - Hosting tiles
