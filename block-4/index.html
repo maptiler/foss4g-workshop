@@ -5,6 +5,7 @@
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
     <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
     <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
         #map {
             position: absolute;
@@ -13,6 +14,10 @@
             bottom: 0;
             left: 0;
         }
+
+        .mapboxgl-popup-content{
+            padding: 18px;
+        }       
     </style>
 </head>
 
@@ -23,6 +28,8 @@
     </div>
     <p><a href="https://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a
             href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a></p>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var apiKey = 'XorxtpkRV4o7B7Ssqzg6';
         var initialLocation = '12.4/-34.61355/-58.44387';
@@ -33,16 +40,24 @@
 
             var feature = e.features[0];
                 if (feature && feature.properties) {
-                    var name = feature.properties['name'];
-                    var hours = feature.properties['hours'];
+                    var name = feature.properties['name'] || 'unknown';
+                    var hours = feature.properties['hours'] || 'unknown';
                     var distance = feature.properties['distance'];
 
-                    content = '<h3>' + label + '</h3>';
-                    content += '<h1>' + name + '</h1>';
-                    content += '<h2>' + hours + '</h2>';
-                    content += '<p>Distance from cycleway ' + distance + ' m. </p>';
+                    var content = `<div class="card" style="width: 18rem;">
+                        <img src="bicycle.jpg" class="card-img-top" alt="bicycle">
+                        <div class="card-body">
+                            <h5 class="card-title">${name}</h5>
+                            <p class="fw-bold">${label}</p>
+                            <p class="card-text">${hours}</p>
+                            <p class="fw-lighter">Distance from cycleway: ${distance} m</p>
+                        </div>
+                    </div>`
 
-                    popup = new maplibregl.Popup()
+                    var opts = {
+                        maxWidth: 'none'
+                    };
+                    popup = new maplibregl.Popup(opts)
                         .setLngLat(e.lngLat)
                         .setHTML(content)
                         .addTo(map);
