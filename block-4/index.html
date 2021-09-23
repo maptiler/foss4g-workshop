@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
+    <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map">
+        <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;"><img
+                src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"></a>
+    </div>
+    <p><a href="https://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a
+            href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a></p>
+    <script>
+        var apiKey = 'XorxtpkRV4o7B7Ssqzg6';
+        var initialLocation = '12.4/-34.61355/-58.44387';
+        var styleId = 'ec4467b0-83e7-4784-bad4-e570d2afb28b';
+
+        var addPopup = function (e, label) {
+            popup?.remove();
+
+            var feature = e.features[0];
+                if (feature && feature.properties) {
+                    var name = feature.properties['name'];
+                    var hours = feature.properties['hours'];
+                    var distance = feature.properties['distance'];
+
+                    content = '<h3>' + label + '</h3>';
+                    content += '<h1>' + name + '</h1>';
+                    content += '<h2>' + hours + '</h2>';
+                    content += '<p>Distance from cycleway ' + distance + ' m. </p>';
+
+                    popup = new maplibregl.Popup()
+                        .setLngLat(e.lngLat)
+                        .setHTML(content)
+                        .addTo(map);
+                }
+        }
+
+        var popup;
+
+        let styleURL = `https://api.maptiler.com/maps/${styleId}/style.json?key=${apiKey}`;
+        var map = new maplibregl.Map({
+            container: 'map',
+            style: styleURL
+        });
+
+        // Add navigation control (the +/- zoom buttons)
+        map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+        // Bike sharing places
+        map.on('click', 'bike-sharing-label', (e) => {
+            addPopup(e, 'Bike Sharing Place');
+        });
+
+        // Bike shops
+        map.on('click', 'bike-shop-label', (e) => {
+            addPopup(e, 'Bike Shop');
+        });        
+
+    </script>
+</body>
+
+</html>
