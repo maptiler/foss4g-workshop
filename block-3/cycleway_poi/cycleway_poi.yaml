@@ -1,0 +1,21 @@
+layer:
+  id: "cycleway_poi"
+  description: |
+      Cycleway points of interests - either bike shop or bike sharing stations.
+  buffer_size: 4
+  fields:
+    name: Name of the bike shop or bike sharing station.
+    hours: Opening hours of bike shop or time-availability of bike sharing station.
+    class:
+      description: |
+        Use the **class** to differentiate between bike sharing station and bike shop.
+      values:
+        - bike-shop
+        - bike-sharing
+    distance: Distance of POI from the nearest cycleway.
+
+  datasource:
+    geometry_field: geometry
+    query: (SELECT name, hours, class, distance, geometry FROM layer_cycleway_poi(!bbox!, z(!scale_denominator!))) AS t
+schema:
+  - ./cycleway_poi.sql

@@ -12,9 +12,7 @@ Repository for From your data to vector tiles in your web&amp;mobile app worksho
 
 ## Block 1 - import OSM data
 
-Add - layers/bicycle/bicycle.yaml into openmaptiles.yaml
-
-unzip bicycle.zip into layers/
+pass
 
 ## Block 2
 
@@ -30,8 +28,8 @@ Go to Browser/PostGIS/New Connection…
 - User: openmaptiles
 - Password: openmaptiles
 
-Check you can see added bicycle table. Go to Browser/PostGIS/osm_buenos_aires/public/osm_bicycle_linestring and
-double-click on it. Bicycle paths should be added to map canvas.
+Check you can see added `osm_cycleway_linestring` table. Go to Browser/PostGIS/osm_buenos_aires/public/osm_cycleway_linestring and
+double-click on it. Cycleways should be added to map canvas.
 
 #### Add basemap for context via MapTiler plugin
 
@@ -62,7 +60,7 @@ double-click on it. Bicycle paths should be added to map canvas.
 #### Distance analysis
 Go to Processing toolbox/GRASS/vector/v.distance 
  - from: Reprojected
- - to: osm_bicycle_linestring
+ - to: osm_cycleway_linestring
  - upload: dist
  - column for upload: distance
  - Save to temporary file Nearest
@@ -82,7 +80,8 @@ PostGIS table `ba_bike_shops`.
 cd openmaptiles
 docker-compose run --rm -v $PWD:/omt import-data /bin/sh
 ogr2ogr --version
-ogr2ogr -f "PostgreSQL" PG:"dbname=openmaptiles" data/bike_shops_w_distance.geojson -nln ba_bike_shops
+ogr2ogr -f "PostgreSQL" PG:"dbname=openmaptiles" /omt/data/bike_shops_w_distance.geojson -nln ba_bike_shops
+exit
 ```
 
 You should be able to see the table `ba_bike_shops` in QGIS now.
@@ -95,6 +94,7 @@ You should be able to see the table `ba_bike_shops` in QGIS now.
 cd openmaptiles
 docker-compose run --rm -v $PWD:/omt import-data /bin/sh
 ogr2ogr -f "PostgreSQL" PG:"dbname=openmaptiles" /omt/data/estaciones-de-bicicletas-zip/estaciones_de_bicicletas_WGS84.shp -nln ba_bike_sharing_stations -s_srs EPSG:4326 -t_srs EPSG:3857
+exit
 ```
 
 ### Spatial analysis in PostGIS
@@ -114,5 +114,117 @@ Either in QGIS/Database/DB Manager... or in psql console
 ```
 cd openmaptiles
 make psql
-UPDATE ba_bike_sharing_stations AS b SET distance=(SELECT ST_Distance(b.wkb_geometry, c.geometry) FROM osm_bicycle_linestring AS c ORDER BY b.wkb_geometry <-> c.geometry LIMIT 1);
+UPDATE ba_bike_sharing_stations AS b SET distance=(SELECT ST_Distance(b.wkb_geometry, c.geometry) FROM osm_cycleway_linestring AS c ORDER BY b.wkb_geometry <-> c.geometry LIMIT 1);
 ```
+
+## Block 3 - adding custom layers to schema
+1. create new folder `cycleway_poi` in `layers` folder
+2. create new files `cycleway_poi.yaml` and `cycleway_poi.sql`
+
+### Layer definition file
+`cycleway_poi.yaml`
+- `id` - id of layer used in style
+- `buffer_size` - buffer around layer for rendering purposes - should be bigger for layers with labels
+- `fields` - attributes definition
+- `datasource` - definition of the layer sql function
+- `schema` - additional sql files that should be run
+
+```
+layer:
+  id: "cycleway_poi"
+  description: |
+      Bicycle points of interests - either bike shop or bike sharing stations.
+  buffer_size: 4
+  fields:
+    name: Name of the bike shop or bike sharing station.
+    hours: Opening hours of bike shop or time-availability of bike sharing station.
+    class:
+      description: |
+        Use the **class** to differentiate between bike sharing station and bike shop.
+      values:
+        - bike-shop
+        - bike-sharing
+    distance: Distance of POI from the nearest cycleways.
+
+  datasource:
+    geometry_field: geometry
+    query: (SELECT name, hours, class, distance, geometry FROM layer_cycleway_poi(!bbox!, z(!scale_denominator!))) AS t
+schema:
+  - ./cycleway_poi.sql
+
+```
+### Layer sql function
+`cycleway_poi.sql`
+- `CREATE FUNCTION layer_cycleway_poi(bbox geometry, zoom_level int)`
+- `RETURNS TABLE (name text, geometry geometry, class text, hours text, distance integer)`
+- `AS SELECT name, geometry, class, hours, distance FROM ba_bike_shops WHERE zoom_level >= 12 UNION ALL ba_bike_sharing_stations WHERE zoom_level >= 12`
+- `WHERE geometry && bbox;`
+
+```
+DROP FUNCTION IF EXISTS layer_cycleway_poi(geometry,integer);
+CREATE OR REPLACE FUNCTION layer_cycleway_poi(bbox geometry, zoom_level int)
+    RETURNS TABLE
+            (
+                name      text,
+                geometry  geometry,
+                class     text,
+                hours     text,
+                distance  integer
+            )
+AS
+$$
+SELECT name,
+       geometry,
+       class,
+       hours,
+       distance
+FROM (
+       -- etldoc: ba_bike_shops -> layer_cycleway_poi:z12_
+       SELECT nombre as name,
+              wkb_geometry as geometry,
+              'bike-shop' AS class,
+              horario_de AS hours,
+              distance
+       FROM ba_bike_shops
+       WHERE zoom_level >= 12
+
+       UNION ALL
+
+       -- etldoc: ba_bike_sharing_stations -> layer_cycleway_poi:z12_
+       SELECT nombre as name,
+              wkb_geometry as geometry,
+              'bike-sharing' AS class,
+              horario AS hours,
+              distance
+       FROM ba_bike_sharing_stations
+       WHERE zoom_level >= 12
+       ) zooms
+WHERE geometry && bbox;
+$$ LANGUAGE SQL STABLE
+                PARALLEL SAFE;
+```
+
+### Rebuild
+We modified schema, so we have to rebuild `build` folder before import.
+```
+make clean
+make
+```
+
+### Import sql
+Run import of sql files.
+```
+make import-sql
+```
+
+### Generate vector tiles
+During the `make download` step, there should be `buenos-aires_city.bbox` file download 
+into `openmaptiles/data/south-america/argentina`.
+It contains BBOX definition (area to be generated). If there is none, you can configure this in `.env` file.
+`BBOX=-58.535,-34.71,-58.331,-34.523`.
+
+Then you can generate tiles
+```
+make generate-tiles-pg
+```
+Generated tiles will be saved in `openmaptiles/data/tiles.mbtiles`

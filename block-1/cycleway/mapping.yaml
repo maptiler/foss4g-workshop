@@ -1,0 +1,28 @@
+
+network_field: &network
+  key: network
+  name: network
+  type: string
+
+tables:
+# etldoc: imposm3 -> osm_cycleway_linestring
+  cycleway_linestring:
+    type: relation_member
+    columns:
+    - name: osm_id
+      type: id
+      from_member: true
+    - name: geometry
+      type: geometry
+    - *network
+    - name: member_name
+      key: name
+      type: string
+      from_member: true
+    - name: surface
+      key: surface
+      type: string
+      from_member: true
+    mapping:
+      route:
+      - bicycle
