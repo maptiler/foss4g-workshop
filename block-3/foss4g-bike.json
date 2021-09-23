@@ -859,9 +859,17 @@
       "type": "symbol",
       "layout": {
         "icon-size": 1,
-        "icon-image": "bicycle_15",
+        "icon-image": "shop_15",
         "visibility": "visible"
       },
+      "filter": [
+        "all",
+        [
+          "in",
+          "class",
+          "bike-shop"
+        ]
+      ],
       "source": "foss4g",
       "minzoom": 12,
       "source-layer": "cycleway_poi"
@@ -874,6 +882,14 @@
         "icon-image": "bicycle_share_15",
         "visibility": "visible"
       },
+      "filter": [
+        "all",
+        [
+          "in",
+          "class",
+          "bike-sharing"
+        ]
+      ],
       "source": "foss4g",
       "minzoom": 12,
       "source-layer": "cycleway_poi"
