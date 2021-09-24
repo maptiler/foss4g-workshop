@@ -1,4 +1,4 @@
--- merge together by name and surface
+-- Generalized spatila data for zooms 8 to zoom 12
 -- etldoc: osm_cycleway_merge_linestring -> osm_cycleway_merge_linestring_gen_z8_z12
 DROP MATERIALIZED VIEW IF EXISTS osm_cycleway_merge_linestring_gen_z8_z12 CASCADE;
 CREATE MATERIALIZED VIEW osm_cycleway_merge_linestring_gen_z8_z12 AS
