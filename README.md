@@ -261,6 +261,15 @@ There are several ways to host your tiles e.g. MapTiler Cloud.
 
 [Sample Web App](https://labs.maptiler.com/foss4g-workshop/block-4/) which shows map prepared during the workshop and display information about bike shops and rentals.
 
-![alt text](block-4/webapp.png "Web App")
+![web app screenshot](block-4/webapp.png "Web App")
 
 ### Mobile App
+
+It is also possible to use the custom app in mobile application:
+
+- Use MapTiler Mobile which is available on App Store/Google play Store. When you login using your account, you fill find the custom map in the list of available maps.  
+- You can build your own app following tutorials which are available on [mapTiler documentation site](https://www.maptiler.com/docs/)
+  - Android: [Custom Map tutorial](https://docs.maptiler.com/maplibre-gl-native-android/android-custom-map/)
+  - iOS: [Custom Map tutorial](https://docs.maptiler.com/maplibre-gl-native-ios/ios-swiftui-custom-map/)
+
+![mobile app screenshot](block-4/mobile.png "Mobile App")
