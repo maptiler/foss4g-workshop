@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
+    <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map">
+        <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;">
+            <img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo">
+        </a>
+    </div>
+    <p>
+        <a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a>
+        <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>
+    </p>
+    <script>
+        var map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://api.maptiler.com/maps/outdoor/style.json?key=XorxtpkRV4o7B7Ssqzg6',
+            zoom: 15,
+            center: [
+                -58.377,
+                -34.608
+            ]
+        });
+
+        map.on('load', () => {
+            fetch('https://api.maptiler.com/data/a9243a93-a4d3-4a6d-a8a1-d00a78a88985/features.json?key=XorxtpkRV4o7B7Ssqzg6')
+                .then(res => {
+                    res.json().then(geojson => {
+                        // add markers to map
+                        for (const { geometry, properties } of geojson.features) {
+                            // make a marker for each feature and add to the map
+                            new maplibregl.Marker().setLngLat(geometry.coordinates).addTo(map);
+                        }                    
+                    });
+                });
+        });
+    </script>
+</body>
+
+</html>
