@@ -12,7 +12,56 @@ Repository for From your data to vector tiles in your web&amp;mobile app worksho
 
 ## Block 1 - import OSM data
 
-pass
+### Project preparation
+**Download 3.12.2 release**
+ - `mkdir foss4g`
+ - `wget https://github.com/openmaptiles/openmaptiles/archive/refs/tags/v3.12.2.zip`
+ - `unzip v3.12.2`
+ - `mv openmaptiles-3.12.2 openmaptiles`
+
+**Download Buenos Aires city from OSM**
+
+ - make download-osmfr area=south-america/argentina/buenos_aires_city
+
+### Creating new layer **cycleway**
+
+- Create folder `cycleway` in `layers`
+
+- Create empty files:
+  - `mapping.yaml`
+    - used by imposm (used by import-osm)
+  - `cycleway.yaml`
+    - used by OMT-T
+  - `cycleway_merge.sql`
+    - data pre-processing (during import-sql)
+  - `cycleway.sql`
+    - used by import-sql
+
+
+
+### code for files
+  - [code for mapping.yaml](./block-1/cycleway/mapping.yaml)
+  - [code for cycleway.yaml](./block-1/cycleway/cycleway.yaml)
+  - [code for cycleway_merge.sql](./block-1/cycleway/cycleway_merge.sql)
+  - [code for cycleway.sql](./block-1/cycleway/cycleway.sql)
+
+### project modification
+
+**Modification of .env file**
+ - BORDERS_CLEANUP=true
+
+**Add cycleway.yaml into openmaptiles.yaml**
+  - layers/cycleway/cycleway.yaml
+
+### import OSM into database
+  - `make clean`
+  - `make`
+
+  - `make import-borders`
+  - `make import-data`
+
+  - `make import-osm`
+  - `make import-wikidata`
 
 ## Block 2
 
