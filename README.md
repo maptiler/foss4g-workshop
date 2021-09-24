@@ -261,6 +261,8 @@ There are several ways to host your tiles e.g. MapTiler Cloud.
 
 [Sample Web App](https://labs.maptiler.com/foss4g-workshop/block-4/) which shows map prepared during the workshop and display information about bike shops and rentals.
 
+[The detailed tutorial](block-4/TUTORIAL.md)
+
 ![web app screenshot](block-4/webapp.png "Web App")
 
 ### Mobile App

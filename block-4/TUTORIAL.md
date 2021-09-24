@@ -6,6 +6,8 @@ The code is also available on StackBlitz:
 - [the app this tutorial is based on](https://stackblitz.com/edit/web-platform-fhrzas?file=script.js)
 - [final app](https://stackblitz.com/edit/web-platform-4zuep7?file=script.js)
 
+![web app source code](stackblitz.png "Source Code")
+
 ## Use map and vector tiles prepared in the workshop.
 
 Remove geoJSON fetch.
