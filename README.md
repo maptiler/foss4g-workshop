@@ -264,7 +264,6 @@ There are several ways to host your tiles e.g. MapTiler Cloud.
 ![web app screenshot](block-4/webapp.png "Web App")
 
 ### Mobile App
-<<<<<<< HEAD
 
 It is also possible to use the custom app in mobile application:
 
@@ -273,4 +272,4 @@ It is also possible to use the custom app in mobile application:
   - Android: [Custom Map tutorial](https://docs.maptiler.com/maplibre-gl-native-android/android-custom-map/)
   - iOS: [Custom Map tutorial](https://docs.maptiler.com/maplibre-gl-native-ios/ios-swiftui-custom-map/)
 
-![mobile app screenshot](block-4/mobile.png "Mobile App")
+<img src="block-4/mobile.png" width="400" alt="mobile app screenshot">
