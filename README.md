@@ -1,14 +1,20 @@
 # foss4g-workshop
 Repository for From your data to vector tiles in your web&amp;mobile app workshop at FOSS4G 2021, Buenos Aires
 
-# Block 0 - prerequisites
+## Block 0 - prerequisites
 
 - Docker, docker-compose
-- QGIS
+ - https://docs.docker.com/get-docker/
+ - `docker pull openmaptiles/postgis:5.3`
+ - `docker pull openmaptiles/import-data:5.3`
+ - `docker pull openmaptiles/openmaptiles-tools:5.3`
+- QGIS > 3.16
+ - https://qgis.org/en/site/forusers/download.html 
 - IDE
+ - gedit, notepad, Sublime... 
 - CloudShell
-
-
+ - https://cloud.google.com/
+ - Sign-in with Google Account
 
 ## Block 1 - import OSM data
 
@@ -23,7 +29,7 @@ Repository for From your data to vector tiles in your web&amp;mobile app worksho
 
  - make download-osmfr area=south-america/argentina/buenos_aires_city
 
-### Creating new layer **cycleway**
+### Creating extra layer **cycleway**
 
 - Create folder `cycleway` in `layers`
 
