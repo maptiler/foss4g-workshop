@@ -1,9 +1,10 @@
 # Sample Web App Tutorial
 
 The tutorial starts with `base.html` file in this folder.
-The code is also available on StackBlitz.
-[base](https://stackblitz.com/edit/web-platform-fhrzas?file=script.js)
-[final app](https://stackblitz.com/edit/web-platform-4zuep7?file=script.js)
+The code is also available on StackBlitz:
+
+- [the app this tutorial is based on](https://stackblitz.com/edit/web-platform-fhrzas?file=script.js)
+- [final app](https://stackblitz.com/edit/web-platform-4zuep7?file=script.js)
 
 ## Use map and vector tiles prepared in the workshop.
 
