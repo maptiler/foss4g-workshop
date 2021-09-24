@@ -230,6 +230,7 @@ make generate-tiles-pg
 Generated tiles will be saved in `openmaptiles/data/tiles.mbtiles`
 
 ## Block 3 - Hosting tiles
+
 There are several ways to host your tiles e.g. MapTiler Cloud.
 
 ### Upload tileset (tiles.mbtiles)
