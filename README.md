@@ -254,3 +254,13 @@ There are several ways to host your tiles e.g. MapTiler Cloud.
 4. Go to `Maps` https://cloud.maptiler.com 
 5. Click on `NEW MAP` and choose edited style.json.
 6. Detail page of `FOSS4G` map will show up.
+
+## Block 4 - Sample Apps
+
+### Web App
+
+[Sample Web App](https://labs.maptiler.com/foss4g-workshop/block-4/) which shows map prepared during the workshop and display information about bike shops and rentals.
+
+![alt text](block-4/webapp.png "Web App")
+
+### Mobile App

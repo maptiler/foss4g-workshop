@@ -6,46 +6,38 @@
     <script src="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.js"></script>
     <link href="https://cdn.maptiler.com/maplibre-gl-js/v1.14.0/maplibre-gl.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        #map {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-
-        .mapboxgl-popup-content{
-            padding: 18px;
-        }       
-    </style>
+    <link href="index.css" rel="stylesheet" />
 </head>
 
 <body>
-    <div id="map">
-        <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;"><img
-                src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"></a>
+    <div id="container">
+        <div id="banner">
+            <img src="maplibre-logo-big.svg" height="42" alt="MapLibre logo">
+            <img src="maptiler-logo.png" height="48" alt="MapTiler logo">
+        </div>
+        <div id="map">
+            <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;">
+                <img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo">
+            </a>
+        </div>
     </div>
-    <p><a href="https://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a
-            href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a></p>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var apiKey = 'XorxtpkRV4o7B7Ssqzg6';
-        var initialLocation = '12.4/-34.61355/-58.44387';
         var styleId = 'ec4467b0-83e7-4784-bad4-e570d2afb28b';
 
-        var addPopup = function (e, label) {
+        var addPopup = function (e, label, image) {
             popup?.remove();
 
             var feature = e.features[0];
-                if (feature && feature.properties) {
-                    var name = feature.properties['name'] || 'unknown';
-                    var hours = feature.properties['hours'] || 'unknown';
-                    var distance = feature.properties['distance'];
+            if (feature && feature.properties) {
+                var name = feature.properties['name'] || 'unknown';
+                var hours = feature.properties['hours'] || 'unknown';
+                var distance = feature.properties['distance'];
 
-                    var content = `<div class="card" style="width: 18rem;">
-                        <img src="bicycle.jpg" class="card-img-top" alt="bicycle">
+                var content = `<div class="card" style="width: 14rem;">
+                        <img src="${image}" class="card-img-top" alt="bicycle">
                         <div class="card-body">
                             <h5 class="card-title">${name}</h5>
                             <p class="fw-bold">${label}</p>
@@ -54,14 +46,14 @@
                         </div>
                     </div>`
 
-                    var opts = {
-                        maxWidth: 'none'
-                    };
-                    popup = new maplibregl.Popup(opts)
-                        .setLngLat(e.lngLat)
-                        .setHTML(content)
-                        .addTo(map);
-                }
+                var opts = {
+                    maxWidth: 'none'
+                };
+                popup = new maplibregl.Popup(opts)
+                    .setLngLat(e.lngLat)
+                    .setHTML(content)
+                    .addTo(map);
+            }
         }
 
         var popup;
@@ -69,7 +61,12 @@
         let styleURL = `https://api.maptiler.com/maps/${styleId}/style.json?key=${apiKey}`;
         var map = new maplibregl.Map({
             container: 'map',
-            style: styleURL
+            style: styleURL,
+            zoom: 15,
+            center: [
+                -58.377,
+                -34.608
+            ]
         });
 
         // Add navigation control (the +/- zoom buttons)
@@ -77,13 +74,13 @@
 
         // Bike sharing places
         map.on('click', 'bike-sharing-label', (e) => {
-            addPopup(e, 'Bike Sharing Place');
+            addPopup(e, 'Bike Sharing Place', 'bicycle.jpg');
         });
 
         // Bike shops
         map.on('click', 'bike-shop-label', (e) => {
-            addPopup(e, 'Bike Shop');
-        });        
+            addPopup(e, 'Bike Shop', 'shop.jpg');
+        });
 
     </script>
 </body>
