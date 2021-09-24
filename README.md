@@ -231,6 +231,30 @@ Generated tiles will be saved in `openmaptiles/data/tiles.mbtiles`
 
 ## Block 3 - Hosting tiles
 
-## Block 4 - Web Viewer
+There are several ways to host your tiles e.g. MapTiler Cloud.
 
-!!Publish style
+### Upload tileset (tiles.mbtiles)
+
+0. If you used CloudShell and you do not have tiles.mbtiles generated on your computer you can download it from: https://dev.maptiler.download/foss4g/mbiles/tiles.mbtiles
+1. Go to https://cloud.maptiler.com/
+2. Sign in with Google account.
+3. Go to `Tiles`, click on `NEW TILESET`
+4. Click on `SELECT A FILE FROM YOUR COMPUTER` and choose generated/downloaded tiles.mbtiles 
+5. Detail page of `FOSS4G-Buenos Aires` tileset will show up. Use plus button in viewer to zoom in to Buenos Aires.
+6. Copy URL to TileJSON in `Vector tiles` section.
+
+### Add style to your tileset
+
+1. Download prepared style.json from https://dev.maptiler.download/foss4g/style/style.json
+2. Open style.json in editor and scroll down to section `sources`. Paste the URL to TileJSON.
+   ```
+   "sources": {
+       "foss4g": {
+           "url": "https://api.maptiler.com/tiles/27a69314-5d8a-4ede-9878-f3e864f298a5/tiles.json?key=XorxtpkRV4o7B7Ssqzg6",
+           "type": "vector"
+       },
+   ```
+3. Save changes.   
+4. Go to `Maps` https://cloud.maptiler.com 
+5. Click on `NEW MAP` and choose edited style.json.
+6. Detail page of `FOSS4G` map will show up.

@@ -859,9 +859,17 @@
       "type": "symbol",
       "layout": {
         "icon-size": 1,
-        "icon-image": "bicycle_15",
+        "icon-image": "shop_15",
         "visibility": "visible"
       },
+      "filter": [
+        "all",
+        [
+          "in",
+          "class",
+          "bike-shop"
+        ]
+      ],
       "source": "foss4g",
       "minzoom": 12,
       "source-layer": "cycleway_poi"
@@ -874,6 +882,14 @@
         "icon-image": "bicycle_share_15",
         "visibility": "visible"
       },
+      "filter": [
+        "all",
+        [
+          "in",
+          "class",
+          "bike-sharing"
+        ]
+      ],
       "source": "foss4g",
       "minzoom": 12,
       "source-layer": "cycleway_poi"
@@ -1210,7 +1226,7 @@
   "sprite": "https://api.maptiler.com/maps/streets/sprite",
   "sources": {
     "foss4g": {
-      "url": "https://api.maptiler.com/tiles/27a69314-5d8a-4ede-9878-f3e864f298a5/tiles.json?key=XorxtpkRV4o7B7Ssqzg6",
+      "url": "",
       "type": "vector"
     },
     "maptiler_attribution": {
