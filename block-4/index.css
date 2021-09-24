@@ -9,32 +9,13 @@ html {
     height: 100%;
 }
 
-#container {
-    display: flex;
-    flex: 1;
-    flex-flow: column;
-}
-
-#banner {
-    flex: 0 0 60px;
-    background-color: bisque;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 16px;
-    padding-right: 16px;
-}
-
-#banner img {
-    flex: 1;
-    flex-flow: row;
-    flex-grow: 0;
-    flex-shrink: 0;
-}
-
 #map {
-    flex: 1;
-}
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
 
 .mapboxgl-popup-content{
     padding: 18px;
