@@ -4,17 +4,17 @@ Repository for From your data to vector tiles in your web&amp;mobile app worksho
 ## Block 0 - prerequisites
 
 - Docker, docker-compose
- - https://docs.docker.com/get-docker/
- - `docker pull openmaptiles/postgis:5.3`
- - `docker pull openmaptiles/import-data:5.3`
- - `docker pull openmaptiles/openmaptiles-tools:5.3`
+  - https://docs.docker.com/get-docker/
+  - `docker pull openmaptiles/postgis:5.3`
+  - `docker pull openmaptiles/import-data:5.3`
+  - `docker pull openmaptiles/openmaptiles-tools:5.3`
 - QGIS > 3.16
- - https://qgis.org/en/site/forusers/download.html 
+  - https://qgis.org/en/site/forusers/download.html 
 - IDE
- - gedit, notepad, Sublime... 
+ -  gedit, notepad, Sublime... 
 - CloudShell
- - https://cloud.google.com/
- - Sign-in with Google Account
+  - https://cloud.google.com/
+  - Sign-in with Google Account
 
 ## Block 1 - import OSM data
 
@@ -27,7 +27,7 @@ Repository for From your data to vector tiles in your web&amp;mobile app worksho
 
 **Download Buenos Aires city from OSM**
 
- - make download-osmfr area=south-america/argentina/buenos_aires_city
+ - `make download-osmfr area=south-america/argentina/buenos_aires_city`
 
 ### Creating extra layer **cycleway**
 
@@ -48,21 +48,21 @@ Repository for From your data to vector tiles in your web&amp;mobile app worksho
 ### code for files
 - [code for mapping.yaml](./block-1/cycleway/mapping.yaml)
 - [code for cycleway.yaml](./block-1/cycleway/cycleway.yaml)
- - `id` - id of layer used in style
- - `buffer_size` - buffer around layer for rendering purposes - should be bigger for layers with labels
- - `fields` - attributes definition
- - `datasource` - definition of the layer sql function
- - `schema` - additional sql files that should be run
+  - `id` - id of layer used in style
+  - `buffer_size` - buffer around layer for rendering purposes - should be bigger for layers with labels
+  - `fields` - attributes definition
+  - `datasource` - definition of the layer sql function
+  - `schema` - additional sql files that should be run
 - [code for cycleway_merge.sql](./block-1/cycleway/cycleway_merge.sql)
 - [code for cycleway.sql](./block-1/cycleway/cycleway.sql)
 
 ### project modification
 
 **Modification of .env file**
- - BORDERS_CLEANUP=true
+ - `BORDERS_CLEANUP=true`
 
 **Add cycleway.yaml into openmaptiles.yaml**
-  - layers/cycleway/cycleway.yaml
+  - `layers/cycleway/cycleway.yaml`
 
 ### import OSM into database
   - `make clean`
@@ -264,6 +264,7 @@ There are several ways to host your tiles e.g. MapTiler Cloud.
 ![web app screenshot](block-4/webapp.png "Web App")
 
 ### Mobile App
+<<<<<<< HEAD
 
 It is also possible to use the custom app in mobile application:
 
