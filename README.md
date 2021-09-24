@@ -46,10 +46,15 @@ Repository for From your data to vector tiles in your web&amp;mobile app worksho
 
 
 ### code for files
-  - [code for mapping.yaml](./block-1/cycleway/mapping.yaml)
-  - [code for cycleway.yaml](./block-1/cycleway/cycleway.yaml)
-  - [code for cycleway_merge.sql](./block-1/cycleway/cycleway_merge.sql)
-  - [code for cycleway.sql](./block-1/cycleway/cycleway.sql)
+- [code for mapping.yaml](./block-1/cycleway/mapping.yaml)
+- [code for cycleway.yaml](./block-1/cycleway/cycleway.yaml)
+ - `id` - id of layer used in style
+ - `buffer_size` - buffer around layer for rendering purposes - should be bigger for layers with labels
+ - `fields` - attributes definition
+ - `datasource` - definition of the layer sql function
+ - `schema` - additional sql files that should be run
+- [code for cycleway_merge.sql](./block-1/cycleway/cycleway_merge.sql)
+- [code for cycleway.sql](./block-1/cycleway/cycleway.sql)
 
 ### project modification
 
@@ -184,30 +189,8 @@ UPDATE ba_bike_sharing_stations AS b SET distance=(SELECT ST_Distance(b.wkb_geom
 - `datasource` - definition of the layer sql function
 - `schema` - additional sql files that should be run
 
-```
-layer:
-  id: "cycleway_poi"
-  description: |
-      Bicycle points of interests - either bike shop or bike sharing stations.
-  buffer_size: 4
-  fields:
-    name: Name of the bike shop or bike sharing station.
-    hours: Opening hours of bike shop or time-availability of bike sharing station.
-    class:
-      description: |
-        Use the **class** to differentiate between bike sharing station and bike shop.
-      values:
-        - bike-shop
-        - bike-sharing
-    distance: Distance of POI from the nearest cycleways.
+- [cycleway_poi.yaml](./block-2/cycleway_poi/cycleway_poi.yaml)
 
-  datasource:
-    geometry_field: geometry
-    query: (SELECT name, hours, class, distance, geometry FROM layer_cycleway_poi(!bbox!, z(!scale_denominator!))) AS t
-schema:
-  - ./cycleway_poi.sql
-
-```
 ### Layer sql function
 `cycleway_poi.sql`
 - `CREATE FUNCTION layer_cycleway_poi(bbox geometry, zoom_level int)`
@@ -215,49 +198,7 @@ schema:
 - `AS SELECT name, geometry, class, hours, distance FROM ba_bike_shops WHERE zoom_level >= 12 UNION ALL ba_bike_sharing_stations WHERE zoom_level >= 12`
 - `WHERE geometry && bbox;`
 
-```
-DROP FUNCTION IF EXISTS layer_cycleway_poi(geometry,integer);
-CREATE OR REPLACE FUNCTION layer_cycleway_poi(bbox geometry, zoom_level int)
-    RETURNS TABLE
-            (
-                name      text,
-                geometry  geometry,
-                class     text,
-                hours     text,
-                distance  integer
-            )
-AS
-$$
-SELECT name,
-       geometry,
-       class,
-       hours,
-       distance
-FROM (
-       -- etldoc: ba_bike_shops -> layer_cycleway_poi:z12_
-       SELECT nombre as name,
-              wkb_geometry as geometry,
-              'bike-shop' AS class,
-              horario_de AS hours,
-              distance
-       FROM ba_bike_shops
-       WHERE zoom_level >= 12
-
-       UNION ALL
-
-       -- etldoc: ba_bike_sharing_stations -> layer_cycleway_poi:z12_
-       SELECT nombre as name,
-              wkb_geometry as geometry,
-              'bike-sharing' AS class,
-              horario AS hours,
-              distance
-       FROM ba_bike_sharing_stations
-       WHERE zoom_level >= 12
-       ) zooms
-WHERE geometry && bbox;
-$$ LANGUAGE SQL STABLE
-                PARALLEL SAFE;
-```
+- [cycleway_poi.sql](./block-2/cycleway_poi/cycleway_poi.sql)
 
 ### Rebuild
 We modified schema, so we have to rebuild `build` folder before import.
