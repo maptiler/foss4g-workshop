@@ -29,7 +29,7 @@ Remove geoJSON fetch.
 Change the style URL
 
 ```js
-style: 'https://api.maptiler.com/maps/ec4467b0-83e7-4784-bad4-e570d2afb28b/style.json?key=XorxtpkRV4o7B7Ssqzg6'
+style: 'https://api.maptiler.com/maps/b4a5f12e-9aea-4742-b767-19557ff5d0d2/style.json?key=XorxtpkRV4o7B7Ssqzg6'
 ```
 
 ## Display POI attributes
