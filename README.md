@@ -280,7 +280,7 @@ There are several ways to host your tiles e.g. MapTiler Cloud.
 
 ### Upload tileset (tiles.mbtiles)
 
-0. If you used CloudShell and you do not have tiles.mbtiles generated on your computer you can download it from: https://dev.maptiler.download/foss4g/mbiles/tiles.mbtiles
+0. If you used CloudShell and you do not have tiles.mbtiles generated on your computer you can download it from: https://dev.maptiler.download/foss4g/mbtiles/tiles.mbtiles
 1. Go to https://cloud.maptiler.com/
 2. Sign in with Google account.
 3. Go to `Tiles`, click on `NEW TILESET`
