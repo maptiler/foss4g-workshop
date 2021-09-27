@@ -1,15 +1,18 @@
 # foss4g-workshop
 Repository for From your data to vector tiles in your web&amp;mobile app workshop at FOSS4G 2021, Buenos Aires
 
-## Block 0 - prerequisites
+## Intro - setup tools
 
 - Docker, docker-compose
   - https://docs.docker.com/get-docker/
-  - `docker pull openmaptiles/postgis:5.3`
-  - `docker pull openmaptiles/import-data:5.3`
-  - `docker pull openmaptiles/openmaptiles-tools:5.3`
+  ```
+  docker pull openmaptiles/postgis:5.3
+  docker pull openmaptiles/import-data:5.3
+  docker pull openmaptiles/openmaptiles-tools:5.3
+  ```
 - QGIS > 3.16
-  - https://qgis.org/en/site/forusers/download.html 
+  - https://qgis.org/en/site/forusers/download.html
+  - including `qgis-grass-plugin`
 - IDE
  -  gedit, notepad, Sublime... 
 - CloudShell
@@ -20,15 +23,17 @@ Repository for From your data to vector tiles in your web&amp;mobile app worksho
 
 ### Project preparation
 **Download 3.12.2 release**
- - `mkdir foss4g`
- - `wget https://github.com/openmaptiles/openmaptiles/archive/refs/tags/v3.12.2.zip`
- - `unzip v3.12.2`
- - `mv openmaptiles-3.12.2 openmaptiles`
+```
+mkdir foss4g
+wget https://github.com/openmaptiles/openmaptiles/archive/refs/tags/v3.12.2.zip
+unzip v3.12.2
+mv openmaptiles-3.12.2 openmaptiles
+```
 
 **Download Buenos Aires city from OSM**
-
- - `make download-osmfr area=south-america/argentina/buenos_aires_city`
-
+```
+make download-osmfr area=south-america/argentina/buenos_aires_city
+```
 ### Creating extra layer **cycleway**
 
 - Create folder `cycleway` in `layers`
@@ -65,14 +70,17 @@ Repository for From your data to vector tiles in your web&amp;mobile app worksho
   - `layers/cycleway/cycleway.yaml`
 
 ### import OSM into database
-  - `make clean`
-  - `make`
+```
+make clean
+make
 
-  - `make import-borders`
-  - `make import-data`
+make import-borders
+make import-data
 
-  - `make import-osm`
-  - `make import-wikidata`
+make import-osm
+make import-wikidata
+```
+ 
 
 ## Block 2
 
