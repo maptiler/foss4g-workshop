@@ -19,7 +19,7 @@ Repository for From your data to vector tiles in your web&amp;mobile app worksho
   - https://cloud.google.com/
   - Sign-in with Google Account
 
-## Block 1 - import OSM data
+## Block 1 - Extract data from OpenStreetMap
 
 ### Project preparation
 **Download 3.12.2 release**
@@ -82,11 +82,10 @@ make import-wikidata
 ```
  
 
-## Block 2
+## Block 2 - Add own data, analyse in QGIS & PostGIS
 
-### Spatial analysis in QGIS
 
-#### Add PostGIS connection to QGIS.
+### 1. Add PostGIS connection to QGIS.
 
 Go to Browser/PostGIS/New Connection…
 - Name: osm_buenos_aires
@@ -99,12 +98,14 @@ Go to Browser/PostGIS/New Connection…
 Check you can see added `osm_cycleway_linestring` table. Go to Browser/PostGIS/osm_buenos_aires/public/osm_cycleway_linestring and
 double-click on it. Cycleways should be added to map canvas.
 
-#### Add basemap for context via MapTiler plugin
+### 2. Add basemap for context via MapTiler plugin
 
 1. Go to Plugins/Manage and Install plugins.../All and search for `MapTiler`
 2. Right-click on MapTiler in Browser and add API key `XorxtpkRV4o7B7Ssqzg6`
 3. Add Streets map
 
+
+### 3. Analyse bike shops (geojson) in QGIS
 
 #### Add GeoJSON to QGIS
 
@@ -138,8 +139,10 @@ Right-click on Nearest/Make Permanent
  - Format: GeoJSON
  - File name: openmaptiles/data/bike_shops_w_distance.geojson
 
-### Import GeoJSON to PostGIS
-Processed GeoJSON available for download at: https://dev.maptiler.download/foss4g/bike_shops_w_distance/bike_shops_w_distance.geojson
+### 4. Import bike shops (geojson) to PostGIS
+
+Processed GeoJSON available for download at: 
+https://dev.maptiler.download/foss4g/bike_shops_w_distance/bike_shops_w_distance.geojson
 
 Use `import-data` docker image to import the processed GeoJSON `bike_shops_w_distance.geojson into` 
 PostGIS table `ba_bike_shops`.
@@ -154,7 +157,7 @@ exit
 
 You should be able to see the table `ba_bike_shops` in QGIS now.
 
-### Import Shapefile to PostGIS
+### 5. Import Shapefile to PostGIS
 1. Download zip file from https://dev.maptiler.download/foss4g/estaciones/estaciones-de-bicicletas-zip.zip
 2. Extract zip file into openmaptiles/data
 3. Import shapefile to PostGIS
@@ -165,7 +168,8 @@ ogr2ogr -f "PostgreSQL" PG:"dbname=openmaptiles" /omt/data/estaciones-de-bicicle
 exit
 ```
 
-### Spatial analysis in PostGIS
+### 6. Analyse bike sharing stations in PostGIS
+
 #### Add new table column
 Either in QGIS/Database/DB Manager... or in psql console
 Add column `distance` with integer type.
@@ -185,11 +189,12 @@ make psql
 UPDATE ba_bike_sharing_stations AS b SET distance=(SELECT ST_Distance(b.wkb_geometry, c.geometry) FROM osm_cycleway_linestring AS c ORDER BY b.wkb_geometry <-> c.geometry LIMIT 1);
 ```
 
-## Adding custom layers to schema
+### 7. Add analysed data into OpenMapTiles schema as a new layer cycleway_poi
+
 1. create new folder `cycleway_poi` in `layers` folder
 2. create new files `cycleway_poi.yaml` and `cycleway_poi.sql`
 
-### Layer definition file
+#### Layer definition file
 `cycleway_poi.yaml`
 - `id` - id of layer used in style
 - `buffer_size` - buffer around layer for rendering purposes - should be bigger for layers with labels
@@ -199,7 +204,7 @@ UPDATE ba_bike_sharing_stations AS b SET distance=(SELECT ST_Distance(b.wkb_geom
 
 - [cycleway_poi.yaml](./block-2/cycleway_poi/cycleway_poi.yaml)
 
-### Layer sql function
+#### Layer sql function
 `cycleway_poi.sql`
 - `CREATE FUNCTION layer_cycleway_poi(bbox geometry, zoom_level int)`
 - `RETURNS TABLE (name text, geometry geometry, class text, hours text, distance integer)`
@@ -221,6 +226,7 @@ Run import of sql files.
 make import-sql
 ```
 
+## Block 3 - Generate, serve and style vector tiles
 ### Generate vector tiles
 During the `make download` step, there should be `buenos-aires_city.bbox` file download 
 into `openmaptiles/data/south-america/argentina`.
@@ -233,7 +239,6 @@ make generate-tiles-pg
 ```
 Generated tiles will be saved in `openmaptiles/data/tiles.mbtiles`
 
-## Block 3 - Hosting tiles
 
 There are several ways to host your tiles e.g. MapTiler Cloud.
 
@@ -263,7 +268,7 @@ There are several ways to host your tiles e.g. MapTiler Cloud.
 5. Click on `NEW MAP` and choose edited style.json.
 6. Detail page of `FOSS4G` map will show up.
 
-## Block 4 - Sample Apps
+## Block 4 - Web & mobile app with custom map
 
 ### Web App
 
