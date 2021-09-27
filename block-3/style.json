@@ -944,7 +944,7 @@
       ],
       "layout": {
         "text-font": [
-          "Nunito Bold"
+          "Noto Sans Bold"
         ],
         "text-size": {
           "base": 1.4,
@@ -997,7 +997,7 @@
       ],
       "layout": {
         "text-font": [
-          "Nunito Bold"
+          "Noto Sans Bold"
         ],
         "text-size": {
           "stops": [
@@ -1049,7 +1049,7 @@
       ],
       "layout": {
         "text-font": [
-          "Nunito Bold"
+          "Noto Sans Bold"
         ],
         "text-size": {
           "stops": [
@@ -1100,7 +1100,7 @@
       ],
       "layout": {
         "text-font": [
-          "Nunito Black"
+          "Noto Sans Regular"
         ],
         "text-size": {
           "stops": [
@@ -1149,7 +1149,7 @@
       ],
       "layout": {
         "text-font": [
-          "Nunito Regular"
+          "Noto Sans Regular"
         ],
         "text-size": {
           "stops": [
