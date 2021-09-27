@@ -95,6 +95,10 @@ make download-osmfr area=south-america/argentina/buenos_aires_city
 
 **Add cycleway.yaml into openmaptiles.yaml**
   - `layers/cycleway/cycleway.yaml`
+  - `center: [0, 0, 10]`
+  - `id: foss4g`
+**modification of docker-compose.yml - postgres ports
+  - `"5432:5432"`
 
 ### import OSM into database
 ```
