@@ -226,6 +226,7 @@ UPDATE ba_bike_sharing_stations AS b SET distance=(SELECT ST_Distance(b.wkb_geom
 
 1. create new folder `cycleway_poi` in `layers` folder
 2. create new files `cycleway_poi.yaml` and `cycleway_poi.sql`
+3. add `layers/cycleway_poi/cycleway_poi.yaml` into list of layers in `openmaptiles.yaml`
 
 #### Layer definition file
 [cycleway_poi.yaml](./block-2/cycleway_poi/cycleway_poi.yaml)
