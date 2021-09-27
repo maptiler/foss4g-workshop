@@ -11,7 +11,9 @@ in a theme of FOSS4G 2021.
 ## Intro - setup tools
 
 - Docker, docker-compose
-  - Installation guide at https://docs.docker.com/get-docker/
+  - Installation guide
+    - https://docs.docker.com/get-docker/
+    - https://docs.docker.com/compose/install/ 
   - Pull Docker images
     ```
     docker pull openmaptiles/postgis:5.3
@@ -231,6 +233,7 @@ UPDATE ba_bike_sharing_stations AS b SET distance=(SELECT ST_Distance(b.wkb_geom
 
 
 #### Layer sql function
+[cycleway_poi.sql](./block-2/cycleway_poi/cycleway_poi.sql)
 [cycleway_poi.sql](./block-2/cycleway_poi/cycleway_poi.sql)
 - `CREATE FUNCTION layer_cycleway_poi(bbox geometry, zoom_level int)`
   - we want to create function with `bbox` and `zoom_level` as input params
