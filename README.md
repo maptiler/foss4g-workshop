@@ -1,20 +1,44 @@
 # foss4g-workshop
 Repository for From your data to vector tiles in your web&amp;mobile app workshop at FOSS4G 2021, Buenos Aires
 
+This README will guide you through the workshop step by step.
+The goal of the workshop is to have a web application with 
+map showing cycleways in the center of Buenos Aires. There will
+be also POIs - bike shops and bike sharing stations - with pop-ups
+displaying some additional information about the POI. The map will be
+in a theme of FOSS4G 2021.
+
 ## Intro - setup tools
 
 - Docker, docker-compose
-  - https://docs.docker.com/get-docker/
-  ```
-  docker pull openmaptiles/postgis:5.3
-  docker pull openmaptiles/import-data:5.3
-  docker pull openmaptiles/openmaptiles-tools:5.3
-  ```
-- QGIS > 3.16
-  - https://qgis.org/en/site/forusers/download.html
-  - including `qgis-grass-plugin`
+  - Installation guide at https://docs.docker.com/get-docker/
+  - Pull Docker images
+    ```
+    docker pull openmaptiles/postgis:5.3
+    docker pull openmaptiles/import-data:5.3
+    docker pull openmaptiles/openmaptiles-tools:5.3
+    ```
+
+- QGIS
+  - Version 3.16 or later 
+  - Installation guide at https://qgis.org/en/site/forusers/download.html
+  - Including `qgis-grass-plugin`
+
+
 - IDE
- -  gedit, notepad, Sublime... 
+  - gedit, notepad, Sublime...
+
+
+- MapTiler Cloud
+  - https://cloud.maptiler.com
+  - Sign-in with Google Account
+
+
+- StackBlitz
+  - https://stackblitz.com 
+  - Sign-in with Google Account
+
+
 - CloudShell
   - https://cloud.google.com/
   - Sign-in with Google Account
@@ -65,6 +89,7 @@ make download-osmfr area=south-america/argentina/buenos_aires_city
 
 **Modification of .env file**
  - `BORDERS_CLEANUP=true`
+ - `MAX_ZOOM=14`
 
 **Add cycleway.yaml into openmaptiles.yaml**
   - `layers/cycleway/cycleway.yaml`
@@ -137,7 +162,7 @@ Go to Processing toolbox/GRASS/vector/v.distance
 #### Export 
 Right-click on Nearest/Make Permanent
  - Format: GeoJSON
- - File name: openmaptiles/data/bike_shops_w_distance.geojson
+ - File name: `openmaptiles/data/bike_shops_w_distance.geojson`.
 
 ### 4. Import bike shops (geojson) to PostGIS
 
@@ -159,8 +184,8 @@ You should be able to see the table `ba_bike_shops` in QGIS now.
 
 ### 5. Import Shapefile to PostGIS
 1. Download zip file from https://dev.maptiler.download/foss4g/estaciones/estaciones-de-bicicletas-zip.zip
-2. Extract zip file into openmaptiles/data
-3. Import shapefile to PostGIS
+2. Extract zip file into `openmaptiles/data`.
+3. Import shapefile to PostGIS.
 ```
 cd openmaptiles
 docker-compose run --rm -v $PWD:/omt import-data /bin/sh
@@ -179,6 +204,7 @@ make psql
 \d ba_bike_sharing_stations
 ALTER TABLE ba_bike_sharing_stations ADD COLUMN distance INTEGER;
 \d ba_bike_sharing_stations
+\q
 ```
 
 #### Distance analysis
@@ -195,23 +221,25 @@ UPDATE ba_bike_sharing_stations AS b SET distance=(SELECT ST_Distance(b.wkb_geom
 2. create new files `cycleway_poi.yaml` and `cycleway_poi.sql`
 
 #### Layer definition file
-`cycleway_poi.yaml`
+[cycleway_poi.yaml](./block-2/cycleway_poi/cycleway_poi.yaml)
 - `id` - id of layer used in style
 - `buffer_size` - buffer around layer for rendering purposes - should be bigger for layers with labels
 - `fields` - attributes definition
 - `datasource` - definition of the layer sql function
 - `schema` - additional sql files that should be run
 
-- [cycleway_poi.yaml](./block-2/cycleway_poi/cycleway_poi.yaml)
+
 
 #### Layer sql function
-`cycleway_poi.sql`
+[cycleway_poi.sql](./block-2/cycleway_poi/cycleway_poi.sql)
 - `CREATE FUNCTION layer_cycleway_poi(bbox geometry, zoom_level int)`
+  - we want to create function with `bbox` and `zoom_level` as input params
 - `RETURNS TABLE (name text, geometry geometry, class text, hours text, distance integer)`
+  - function returns table with column `name`, `geometry`, `class` and `hours`. Column names match field names in `cycleway_poi.yaml`
 - `AS SELECT name, geometry, class, hours, distance FROM ba_bike_shops WHERE zoom_level >= 12 UNION ALL ba_bike_sharing_stations WHERE zoom_level >= 12`
+  - table consists of union of select from `ba_bike_shops` table and `ba_bike_sharing_stations` table.
 - `WHERE geometry && bbox;`
-
-- [cycleway_poi.sql](./block-2/cycleway_poi/cycleway_poi.sql)
+  - WHERE condition assures that only data in given bbox will be returned
 
 ### Rebuild
 We modified schema, so we have to rebuild `build` folder before import.
