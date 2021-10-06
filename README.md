@@ -134,7 +134,8 @@ double-click on it. Cycleways should be added to map canvas.
 
 1. Go to Plugins/Manage and Install plugins.../All and search for `MapTiler`
 2. Right-click on MapTiler in Browser and add API key `XorxtpkRV4o7B7Ssqzg6`
-3. Add Streets map
+   > :warning: **Expired API key**: This API key was generated just for workshop purpose. Get your own at https://cloud.maptiler.com
+4. Add Streets map
 
 
 ### 3. Analyse bike shops (geojson) in QGIS
