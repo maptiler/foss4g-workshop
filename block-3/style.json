@@ -1226,7 +1226,7 @@
   "sprite": "https://api.maptiler.com/maps/streets/sprite",
   "sources": {
     "foss4g": {
-      "url": "https://api.maptiler.com/tiles/27a69314-5d8a-4ede-9878-f3e864f298a5/tiles.json?key=XorxtpkRV4o7B7Ssqzg6",
+      "url": "https://api.maptiler.com/tiles/27a69314-5d8a-4ede-9878-f3e864f298a5/tiles.json?key=<your-API-key>",
       "type": "vector"
     },
     "maptiler_attribution": {

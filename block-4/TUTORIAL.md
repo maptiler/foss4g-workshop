@@ -15,7 +15,7 @@ Remove geoJSON fetch.
 
 ```js
   fetch(
-    'https://api.maptiler.com/data/a9243a93-a4d3-4a6d-a8a1-d00a78a88985/features.json?key=XorxtpkRV4o7B7Ssqzg6'
+    'https://api.maptiler.com/data/a9243a93-a4d3-4a6d-a8a1-d00a78a88985/features.json?key=<your-API-key>'
   ).then((res) => {
     res.json().then((geojson) => {
       // add markers to map
@@ -31,7 +31,7 @@ Remove geoJSON fetch.
 Change the style URL
 
 ```js
-style: 'https://api.maptiler.com/maps/b4a5f12e-9aea-4742-b767-19557ff5d0d2/style.json?key=XorxtpkRV4o7B7Ssqzg6'
+style: 'https://api.maptiler.com/maps/b4a5f12e-9aea-4742-b767-19557ff5d0d2/style.json?key=<your-API-key>'
 ```
 > :warning: **Expired API key**: This API key was generated just for workshop purpose. Get your own at https://cloud.maptiler.com
 
@@ -155,4 +155,3 @@ if (feature && feature.properties) {
     }
 }        
 ```
-
