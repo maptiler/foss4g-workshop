@@ -301,6 +301,7 @@ There are several ways to host your tiles e.g. MapTiler Cloud.
            "type": "vector"
        },
    ```
+   > :warning: **Expired API key**: This API key was generated just for workshop purpose. Get your own at https://cloud.maptiler.com
 3. Save changes.   
 4. Go to `Maps` https://cloud.maptiler.com 
 5. Click on `NEW MAP` and choose edited style.json.
