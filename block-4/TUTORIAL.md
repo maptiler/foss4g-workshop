@@ -5,6 +5,7 @@ The code is also available on StackBlitz:
 
 - [the app this tutorial is based on](https://stackblitz.com/edit/web-platform-fhrzas?file=script.js)
 - [final app](https://stackblitz.com/edit/web-platform-4zuep7?file=script.js)
+  > :warning: **Expired API key**: These apps use expired API key, that was generated just for workshop purpose. Get your own at https://cloud.maptiler.com
 
 ![web app source code](stackblitz.png "Source Code")
 
@@ -25,12 +26,14 @@ Remove geoJSON fetch.
     });
   });
 ```
+> :warning: **Expired API key**: This API key was generated just for workshop purpose. Get your own at https://cloud.maptiler.com
 
 Change the style URL
 
 ```js
 style: 'https://api.maptiler.com/maps/b4a5f12e-9aea-4742-b767-19557ff5d0d2/style.json?key=XorxtpkRV4o7B7Ssqzg6'
 ```
+> :warning: **Expired API key**: This API key was generated just for workshop purpose. Get your own at https://cloud.maptiler.com
 
 ## Display POI attributes
 
