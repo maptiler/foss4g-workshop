@@ -10,6 +10,9 @@ in a theme of FOSS4G 2021.
 
 ## Intro - setup tools
 
+[![From your data to vector tiles in web & mobile apps | FOSS4G 2021 Workshop #0 Intro](https://user-images.githubusercontent.com/59284/143770901-a5e9aeeb-17ec-47e9-a119-9f51948ed6df.jpeg)](https://www.youtube.com/watch?v=PANgq4Xgyy8&list=PLGHe6Moaz52Mcq4BC9vczIIizNzwIYocv&index=3&ab_channel=MapTiler)
+
+
 - Docker, docker-compose
   - Installation guide
     - https://docs.docker.com/get-docker/
@@ -46,6 +49,9 @@ in a theme of FOSS4G 2021.
   - Sign-in with Google Account
 
 ## Block 1 - Extract data from OpenStreetMap
+
+[![Extract data from OpenStreetMap | FOSS4G 2021 Workshop Block #1](https://user-images.githubusercontent.com/59284/143771548-76a9de21-4aec-44fe-9757-576aaee63a13.jpeg)](https://www.youtube.com/watch?v=mx9l_yn8Dc0&list=PLGHe6Moaz52Mcq4BC9vczIIizNzwIYocv&index=2&ab_channel=MapTiler)
+
 
 ### Project preparation
 **Download 3.12.2 release**
@@ -116,6 +122,7 @@ make import-wikidata
 
 ## Block 2 - Add own data, analyse in QGIS & PostGIS
 
+[![Add own data, analyse in QGIS & PostGIS | FOSS4G 2021 Workshop Block #2](https://user-images.githubusercontent.com/59284/143771967-81a31851-0256-4e29-ae2b-3d3ffa6239cb.jpeg)](https://www.youtube.com/watch?v=3xpTBJAL8nc&list=PLGHe6Moaz52Mcq4BC9vczIIizNzwIYocv&index=3&ab_channel=MapTiler)
 
 ### 1. Add PostGIS connection to QGIS.
 
@@ -265,6 +272,13 @@ make import-sql
 ```
 
 ## Block 3 - Generate, serve and style vector tiles
+
+
+
+[![Generate, serve and style vector tiles | FOSS4G 2021 Workshop Block #3](https://user-images.githubusercontent.com/59284/143771827-c40e4e06-3aaf-43d2-8cb3-47ece423f51d.jpeg)](https://www.youtube.com/watch?v=7aqGWjOxMWg&list=PLGHe6Moaz52Mcq4BC9vczIIizNzwIYocv&index=4&ab_channel=MapTiler)
+
+
+
 ### Generate vector tiles
 During the `make download` step, there should be `buenos-aires_city.bbox` file download 
 into `openmaptiles/data/south-america/argentina`.
@@ -309,6 +323,9 @@ There are several ways to host your tiles e.g. MapTiler Cloud.
 
 ## Block 4 - Web & mobile app with custom map
 
+[![Web & mobile app with a custom map | FOSS4G 2021 Workshop Block #4](https://user-images.githubusercontent.com/59284/143771901-e68dbb01-c798-4134-8aaf-0194acb7481c.jpeg)](https://www.youtube.com/watch?v=sSq0axkwLU8&list=PLGHe6Moaz52Mcq4BC9vczIIizNzwIYocv&index=5&ab_channel=MapTiler)
+
+
 ### Web App
 
 [Sample Web App](https://labs.maptiler.com/foss4g-workshop/block-4/) which shows map prepared during the workshop and display information about bike shops and rentals.
@@ -328,3 +345,10 @@ It is also possible to use the custom app in mobile application:
   - iOS: [Custom Map tutorial](https://docs.maptiler.com/maplibre-gl-native-ios/ios-swiftui-custom-map/)
 
 <img src="block-4/mobile.png" width="400" alt="mobile app screenshot">
+
+
+[![MapLibre – Mapbox GL Native Open Source Fork | FOSS4G 2021 Buenos Aires, Petr Pokorny](https://user-images.githubusercontent.com/59284/143772097-d48eb927-9235-4aa4-85d8-d0c1397a4290.jpeg)](https://www.youtube.com/watch?v=pYbKJz6-q2w&list=PLGHe6Moaz52Mcq4BC9vczIIizNzwIYocv&index=8&ab_channel=MapTiler)
+
+https://docs.maptiler.com/maplibre-gl-native-android/
+
+https://docs.maptiler.com/maplibre-gl-native-ios/
